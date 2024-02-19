@@ -1,5 +1,11 @@
 (async () => {
   document.addEventListener("DOMContentLoaded", async () => {
+    // Safari фикс 1vh
+    document.documentElement.style.setProperty(
+      "--vh",
+      `${window.innerHeight * 0.01}px`
+    );
+
     const gameWrapperElem = document.querySelector(".game__wrapper");
     const gameWindowElem = document.querySelector(".game__window");
     const gameAnswersElem = document.querySelector(".game__answers");
@@ -44,7 +50,7 @@
 
     // Функция сохранения (финиш)
     function onGameSave() {
-      console.log('You win');
+      console.log("You win");
     }
 
     // Drag and Drop
@@ -157,6 +163,6 @@
       el.addEventListener("touchstart", onTouchStart);
     });
 
-    gameSaveButtonElem.addEventListener('click', onGameSave);
+    gameSaveButtonElem.addEventListener("click", onGameSave);
   });
 })();
