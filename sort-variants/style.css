@@ -52,7 +52,7 @@ body {
   margin-top: 20px;
 }
 
-.game__window {
+.game__frame {
   position: relative;
 
   padding: 8px 0;
@@ -62,8 +62,13 @@ body {
   background-color: #ffffff;
   border-radius: 8px;
 }
+.game__window {
+  position: relative;
 
-.game__window:before {
+  z-index: 10;
+}
+
+.game__picture {
   content: "";
 
   position: absolute;
@@ -82,7 +87,7 @@ body {
   opacity: 0.4;
 }
 
-.game__window:after {
+.game__frame:after {
   content: "";
 
   position: absolute;
@@ -111,7 +116,6 @@ body {
   color: #67a2f8;
   text-shadow: 1px 0 1px #ffffff, 0 1px 1px #ffffff, -1px 0 1px #ffffff,
     0 -1px 1px #ffffff;
-  z-index: 10;
 }
 
 .game__answers {
@@ -126,7 +130,7 @@ body {
 
 .game__answers > .game__answer {
   position: absolute;
-  padding: 4px 0;
+  padding: 4px;
   width: 100%;
 
   text-align: center;

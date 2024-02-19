@@ -8,6 +8,7 @@
 
     const gameWrapperElem = document.querySelector(".game__wrapper");
     const gameWindowElem = document.querySelector(".game__window");
+    const gameFrameElem = document.querySelector(".game__frame");
     const gameAnswersElem = document.querySelector(".game__answers");
     const gameSaveButtonElem = document.querySelector(".game__save");
 
@@ -136,7 +137,7 @@
 
     // Если курсор в над "окном"
     function isCursorInsideGameWindow(x, y) {
-      const windowRect = gameWindowElem.getBoundingClientRect();
+      const windowRect = gameFrameElem.getBoundingClientRect();
 
       if (
         x >= windowRect.left &&
