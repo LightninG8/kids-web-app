@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,11 @@
 
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
   <div class="game game__wrapper">
 
+    <!-- Обычный HTML -->
     <div class="container game__container">
       <div class="game__window"></div>
       <div class="game__trash">
@@ -17,8 +20,25 @@
       </div>
     </div>
 
+    <!-- SVG -->
+    <svg width="800" height="900" viewBox="0 0 800 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_775_6926)">
+        <rect width="800" height="900" fill="#FFCFCF" />
+        <path
+          d="M504.126 -164.969C562.093 -66.7121 651.839 157.331 547.079 267.447C442.32 377.562 70.731 464.822 -101.968 494.688"
+          stroke="#FFA9A9" stroke-width="96" />
+      </g>
+      <defs>
+        <clipPath id="clip0_775_6926">
+          <rect width="800" height="900" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+
+
   </div>
 
   <script src="./main.js"></script>
 </body>
+
 </html>

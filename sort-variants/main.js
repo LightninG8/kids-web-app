@@ -20,7 +20,7 @@
           const answerElem = document.createElement("div");
 
           answerElem.classList.add("game__answer");
-          answerElem.textContent = el;
+          answerElem.innerHTML = `<span>${el}</span>`;
           answerElem.style.top = "0px";
 
           gameAnswersElem.appendChild(answerElem);
@@ -37,8 +37,11 @@
           el.style.top = lastTopOffset + 8 + "px";
           el.style.left = "0px";
 
-          el.textContent = el.textContent + ' ' + el.clientHeight;
-          lastTopOffset = lastTopOffset + el.clientHeight + 8;
+          console.dir(el);
+          const textWidth = el.childNodes[0].getBoundingClientRect().width;
+          const height = textWidth > 312 ? (Math.floor(textWidth / 312) + 1) * 20 : el.clientHeight;
+  
+          lastTopOffset = lastTopOffset + height + 8;
         });
 
       document.querySelectorAll(".game__window .game__answer").forEach((el) => {
