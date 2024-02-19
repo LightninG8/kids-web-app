@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "name": "boots",
+      "img": "./images/boots.png",
+      "x": 38,
+      "y": 85
+    },
+    {
+      "name": "pigeon",
+      "img": "./images/pigeon.png",
+      "x": 200,
+      "y": 180
+    }
+  ]
+}
