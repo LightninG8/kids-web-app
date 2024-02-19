@@ -153,6 +153,10 @@
     }
 
     function onTouchStart(e) {
+      if (!e.target.classList.includes('game__answer')) {
+        return;
+      }
+
       const { pageX, pageY } = e.changedTouches[0];
 
       dragStart(e.target, pageX, pageY);
