@@ -1,4 +1,7 @@
 (async () => {
+  const tg = window.Telegram.WebApp;
+  tg.expand();
+
   // Фиксим отступ сверху
   function fixAnswersOffsetTop() {
     let lastTopOffset = 0;
