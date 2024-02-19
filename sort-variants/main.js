@@ -153,7 +153,8 @@
     }
 
     function onTouchStart(e) {
-      if (!e.target.classList.includes('game__answer')) {
+      console.log(e.target);
+      if (!e.target.classList.contains('game__answer')) {
         return;
       }
 
