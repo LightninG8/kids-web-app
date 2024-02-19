@@ -6,26 +6,48 @@
       `${window.innerHeight * 0.01}px`
     );
 
-    const canvas = document.querySelector(".game__canvas");
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    const canvas1 = document.querySelector(".game__canvas_1");
+    const canvas2 = document.querySelector(".game__canvas_2");
+    const canvas3 = document.querySelector(".game__canvas_3");
+    const ctx1 = canvas1.getContext("2d", { willReadFrequently: true });
+    const ctx2 = canvas2.getContext("2d", { willReadFrequently: true });
+    const ctx3 = canvas3.getContext("2d", { willReadFrequently: true });
 
-    canvas.width = 320;
-    canvas.height = 420;
+    canvas1.width = 320;
+    canvas1.height = 420;
+
+    canvas2.width = 320;
+    canvas2.height = 420;
+
+    canvas3.width = 320;
+    canvas3.height = 420;
 
     // Добавляем картинку
-    const img = new Image();
+    const img1 = new Image();
+    const img2 = new Image();
+    const img3 = new Image();
 
     // Привязываем функцию к событию onload
     // Это указывает браузеру, что делать, когда изображение загружено
-    img.onload = function () {
-      ctx.drawImage(img, 0, 0);
+    img1.onload = function () {
+      ctx1.drawImage(img1, 0, 0);
+    };
+
+    img2.onload = function () {
+      ctx2.drawImage(img2, 0, 0);
+    };
+
+    img3.onload = function () {
+      ctx3.drawImage(img3, 0, 0);
     };
 
     // Загружаем файл изображения
-    img.src = "./image.png";
+    img1.src = "./image.png";
+    img2.src = "./image_bw.png";
+    img3.src = "./image_bw_paint.png";
 
     // Обработка нажатий
-    function fill(e) {
+    function fill(e, canvas, ctx) {
       function rgb2hex(rgb) {
         return (
           "#" +
@@ -42,9 +64,11 @@
 
         return [r, g, b, 255];
       }
-      let ex = e.layerX || e.changedTouches[0].pageX - 5 + workspace.scrollLeft,
+      let ex = e.offsetX || e.changedTouches[0].offsetX,
         ey =
-          e.layerY || e.changedTouches[0].pageY - 5 - 92 + workspace.scrollTop;
+          e.offsetY || e.changedTouches[0].offsetY;
+
+          console.log(e);
 
       let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -117,7 +141,13 @@
       drawPixels([ex, ey], initialColor, newColor);
     }
 
-    canvas.addEventListener("mousedown", fill);
-    canvas.addEventListener("touch", fill);
+    canvas1.addEventListener("mousedown", (e) => fill(e, canvas1, ctx1));
+    canvas1.addEventListener("touch", (e) => fill(e, canvas1, ctx1));
+
+    canvas2.addEventListener("mousedown", (e) => fill(e, canvas2, ctx2));
+    canvas2.addEventListener("touch", (e) => fill(e, canvas2, ctx2));
+
+    canvas3.addEventListener("mousedown", (e) => fill(e, canvas3, ctx3));
+    canvas3.addEventListener("touch", (e) => fill(e, canvas3, ctx3));
   });
 })();
