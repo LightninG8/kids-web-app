@@ -147,13 +147,16 @@
     }
 
     function onMouseDown(e) {
+      if (!e.target.classList.contains('game__answer')) {
+        return;
+      }
+    
       const { pageX, pageY } = e;
 
       dragStart(e.target, pageX, pageY);
     }
 
     function onTouchStart(e) {
-      console.log(e.target);
       if (!e.target.classList.contains('game__answer')) {
         return;
       }
