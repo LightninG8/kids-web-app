@@ -6,8 +6,6 @@
       `${window.innerHeight * 0.01}px`
     );
 
-    const WebApp = window.Telegram?.WebApp;
-
     const gameWrapperElem = document.querySelector(".game__wrapper");
     const gameWindowElem = document.querySelector(".game__window");
     const gameFrameElem = document.querySelector(".game__frame");
@@ -60,7 +58,7 @@
 
     // Drag and Drop
     function dragStart(elem, startPageX, startPageY) {
-      if (! WebApp ? WebApp?.isExpanded : true) {
+      if (! window.Telegram?.WebApp ? window.Telegram?.WebApp?.isExpanded : true) {
         return;
       }
 
