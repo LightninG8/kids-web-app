@@ -24,8 +24,6 @@
           answerElem.style.top = "0px";
 
           gameAnswersElem.appendChild(answerElem);
-
-          fixAnswersOffsetTop();
         });
       });
 
@@ -39,6 +37,7 @@
           el.style.top = lastTopOffset + 8 + "px";
           el.style.left = "0px";
 
+          el.textContent = el.textContent + ' ' + el.clientHeight;
           lastTopOffset = lastTopOffset + el.clientHeight + 8;
         });
 
@@ -48,7 +47,7 @@
       });
     }
 
-    document.addEventListener("load", fixAnswersOffsetTop);
+    fixAnswersOffsetTop();
     window.addEventListener("resize", fixAnswersOffsetTop);
 
     // Функция сохранения (финиш)
