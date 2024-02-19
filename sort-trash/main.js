@@ -1,7 +1,7 @@
 (async () => {
-  const tg = window.Telegram.WebApp;
-  tg.expand();
-  
+  window.Telegram && window.Telegram?.WebApp.expand();
+
+
   document.addEventListener("DOMContentLoaded", async () => {
     // Safari фикс 1vh
     document.documentElement.style.setProperty(

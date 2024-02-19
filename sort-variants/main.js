@@ -1,6 +1,5 @@
 (async () => {
-  const tg = window.Telegram.WebApp;
-  tg.expand();
+  window.Telegram && window.Telegram?.WebApp.expand();
 
   // Фиксим отступ сверху
   function fixAnswersOffsetTop() {
@@ -10,7 +9,7 @@
       el.style.top = lastTopOffset + 8 + "px";
       el.style.left = "0px";
 
-      lastTopOffset = lastTopOffset + el.clientHeight + 8;
+      lastTopOffset = lastTopOffset + el.clientHeight  + 8;
     });
 
     document.querySelectorAll(".game__window .game__answer").forEach((el) => {
