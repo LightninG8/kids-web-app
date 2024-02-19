@@ -6,6 +6,8 @@
       `${window.innerHeight * 0.01}px`
     );
 
+    const WebApp = window.Telegram?.WebApp;
+
     const gameWrapperElem = document.querySelector(".game__wrapper");
     const gameWindowElem = document.querySelector(".game__window");
     const gameFrameElem = document.querySelector(".game__frame");
@@ -46,7 +48,8 @@
       });
     }
 
-    setTimeout(fixAnswersOffsetTop, 0);
+    fixAnswersOffsetTop();
+    fixAnswersOffsetTop();
     window.addEventListener("resize", fixAnswersOffsetTop);
 
     // Функция сохранения (финиш)
@@ -56,6 +59,10 @@
 
     // Drag and Drop
     function dragStart(elem, startPageX, startPageY) {
+      if (!WebApp?.isExpanded) {
+        return;
+      }
+
       const startElemLeft = +elem.style.left.replace("px", "");
       const startElemTop = +elem.style.top.replace("px", "");
 
