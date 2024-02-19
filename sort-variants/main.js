@@ -107,6 +107,8 @@
 
         document.removeEventListener("mousemove", onMouseMove);
         document.removeEventListener("mouseup", onMouseUp);
+        document.removeEventListener("touchmove", onTouchMove);
+        document.removeEventListener("touchend", onTouchEnd);
       }
 
       function onTouchMove(e) {
@@ -120,6 +122,8 @@
 
         dragEnd(pageX, pageY);
 
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
         document.removeEventListener("touchmove", onTouchMove);
         document.removeEventListener("touchend", onTouchEnd);
       }
@@ -146,21 +150,13 @@
       return false;
     }
 
-    function onMouseDown(e) {
-      if (!e.target.classList.contains('game__answer')) {
-        return;
-      }
-    
+    function onMouseDown(e) { 
       const { pageX, pageY } = e;
 
       dragStart(e.target, pageX, pageY);
     }
 
     function onTouchStart(e) {
-      if (!e.target.classList.contains('game__answer')) {
-        return;
-      }
-
       const { pageX, pageY } = e.changedTouches[0];
 
       dragStart(e.target, pageX, pageY);
