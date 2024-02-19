@@ -103,7 +103,7 @@ body {
 }
 
 .game__window > .game__answer {
-  position: relative;
+  position: static;
 
   margin-top: 8px;
   font-family: "SA Long Beach";
