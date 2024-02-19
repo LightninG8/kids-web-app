@@ -54,8 +54,11 @@ body {
 .game__window {
   position: relative;
 
+  height: 420px;
+  
   margin-top: 12px;
   border-radius: 12px;
+  overflow: hidden;
 }
 .game__title {
   color: #222222;
