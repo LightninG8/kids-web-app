@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 @font-face {
   font-family: "SA Long Beach";
   src: url("./fonts/SALongBeach.woff");
@@ -18,8 +25,12 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  user-select: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 body {
@@ -125,6 +136,8 @@ body {
 }
 
 .game__answer {
+  -webkit-transition: 0.2s all ease;
+  -o-transition: 0.2s all ease;
   transition: 0.2s all ease;
 }
 
@@ -148,6 +161,10 @@ body {
 .game__answers > .game__answer.drag {
   z-index: 100;
 
+  -webkit-transition: none;
+
+  -o-transition: none;
+
   transition: none;
 }
 
@@ -168,6 +185,8 @@ body {
   background: #A0D160;
 
   cursor: pointer;
+  -webkit-transition: 0.1s all ease;
+  -o-transition: 0.1s all ease;
   transition: 0.1s all ease;
 }
 
