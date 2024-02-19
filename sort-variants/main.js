@@ -50,6 +50,7 @@
       });
     }
 
+    document.addEventListener("load", fixAnswersOffsetTop);
     window.addEventListener("resize", fixAnswersOffsetTop);
 
     // Функция сохранения (финиш)
