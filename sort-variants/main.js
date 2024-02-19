@@ -26,6 +26,8 @@
           answerElem.style.top = "0px";
 
           gameAnswersElem.appendChild(answerElem);
+
+          fixAnswersOffsetTop();
         });
       });
 
@@ -48,8 +50,6 @@
       });
     }
 
-    fixAnswersOffsetTop();
-    fixAnswersOffsetTop();
     window.addEventListener("resize", fixAnswersOffsetTop);
 
     // Функция сохранения (финиш)
