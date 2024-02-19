@@ -1,18 +1,32 @@
+@font-face {
+  font-family: "SA Long Beach";
+  src: url("./fonts/SALongBeach.woff");
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("./fonts/SFProText-Medium.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("./fonts/SFProText-Bold.ttf");
+  font-weight: bold;
+}
 
 * {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 body {
-  background: #d6e6fd;
-
   overflow: hidden;
 }
 
@@ -26,7 +40,7 @@ body {
   width: 100vw;
   height: calc(var(--vh, 1vh) * 100);
 
-  background: #F8F8F8;
+  background: #f8f8f8;
 
   overflow-x: hidden;
 }
@@ -37,6 +51,91 @@ body {
   margin-top: 32px;
 }
 
-.game__canvas {
-  border: 1px solid #808080;
+.game__window {
+  position: relative;
+
+  margin-top: 12px;
+  border-radius: 12px;
+}
+.game__title {
+  color: #222222;
+  font-family: "SF Pro Text";
+  font-size: 20;
+  font-weight: bold;
+  text-align: center;
+}
+
+.game__window:after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: block;
+
+  background: var(--image-cover);
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+}
+
+.game__arrows {
+  margin-top: 12px;
+
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 5px;
+  justify-content: center;
+}
+
+.game__arrow {
+  width: 30px;
+  height: 30px;
+
+  background-repeat: no-repeat;
+  background-size: 20px 19px;
+  background-position: center center;
+
+  background-color: #fae9d4;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.arrow-left {
+  background-image: url("./images/arrow-left.svg");
+}
+
+.arrow-right {
+  background-image: url("./images/arrow-right.svg");
+}
+
+.game__colors {
+  margin-top: 12px;
+
+  display: grid;
+  grid-template-columns: repeat(8, auto);
+  justify-content: space-between;
+  grid-gap: 12px;
+}
+
+.game__color {
+  width: 32px;
+  height: 32px;
+
+  border: 1px solid #ebebeb;
+  border-radius: 50%;
+
+  /* box-sizing: content-box; */
+  cursor: pointer;
+
+  transition: .1s;
+}
+
+.game__color.active {
+  border: 2px solid #a0d160;
 }

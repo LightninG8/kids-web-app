@@ -1,0 +1,25 @@
+{
+  "image": "./images/РаскраскаWHITE.png",
+  "imageCover": "./images/РаскраскаVOID.png",
+  "colors": [
+    "#ffffff",
+    "#ffe7e2",
+    "#bababb",
+    "#feec01",
+    "#f29963",
+    "#7bd44d",
+    "#2fb5b5",
+    "#6c6865",
+    "#7a6ba3",
+    "#f18c06",
+    "#e40913",
+    "#d1357b",
+    "#793c13",
+    "#2c2d84",
+    "#344d2b",
+    "#12100c"
+  ],
+  "activeColor": "#e40913",
+  "history": [],
+  "historyStep": 0
+}

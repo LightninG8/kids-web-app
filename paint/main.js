@@ -1,14 +1,79 @@
-(() => {
-  document.addEventListener("DOMContentLoaded", () => {
+(async () => {
+  document.addEventListener("DOMContentLoaded", async () => {
     // Safari фикс 1vh
     document.documentElement.style.setProperty(
       "--vh",
       `${window.innerHeight * 0.01}px`
     );
 
+    document.addEventListener("resize", () => {
+      document.documentElement.style.setProperty(
+        "--vh",
+        `${window.innerHeight * 0.01}px`
+      );
+    });
+
+    let config = {};
+
+    await fetch("./gameConfig.json")
+      .then((res) => res.json())
+      .then((json) => {
+        config = json;
+      });
+
+    // ---------- КНОПКИ ----------
+    const arrowLeftElem = document.querySelector(".arrow-left");
+    const arrowRightElem = document.querySelector(".arrow-right");
+    const gameColorsElem = document.querySelector(".game__colors");
+
+    arrowLeftElem.addEventListener('click', () => {
+      config.historyStep = Math.min(config.history.length - 1, config.historyStep + 1);
+
+      renderHistoryFrame();
+    });
+
+    arrowRightElem.addEventListener('click', () => {
+      config.historyStep = Math.max(0, config.historyStep - 1);
+
+      renderHistoryFrame();
+    });
+
+    function renderHistoryFrame() {
+      console.log(config.historyStep);
+      ctx.putImageData(config.history[config.history.length - config.historyStep - 1], 0, 0);
+    }
+
+    config.colors.forEach((el) => {
+      const colorElem = document.createElement("div");
+
+      colorElem.classList.add("game__color");
+      if (el == config.activeColor) {
+        colorElem.classList.add("active");
+      }
+      colorElem.style.backgroundColor = el;
+      colorElem.dataset.color = el;
+
+      gameColorsElem.appendChild(colorElem);
+    });
+
+    document.querySelectorAll(".game__color").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        const color = e.target.dataset.color;
+
+        document
+          .querySelectorAll(".game__color")
+          .forEach((el) => el.classList.remove("active"));
+
+        config.activeColor = color;
+        document
+          .querySelector(`.game__color[data-color="${color}"]`)
+          .classList.add("active");
+      });
+    });
+
+    // ---------- CANVAS ----------
     const canvas = document.querySelector(".game__canvas");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
-
 
     canvas.width = 320;
     canvas.height = 420;
@@ -20,12 +85,16 @@
     // Это указывает браузеру, что делать, когда изображение загружено
     img.onload = function () {
       ctx.drawImage(img, 0, 0);
+
+      config.history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     };
 
-
     // Загружаем файл изображения
-    img.src = "./image_gs.png";
-
+    img.src = config.image;
+    document.documentElement.style.setProperty(
+      "--image-cover",
+      `url(${config.imageCover})`
+    );
 
     function rgb2hex(rgb) {
       return (
@@ -47,8 +116,8 @@
     // Получение списка оттенков серого
     const grayscaleColors = [];
 
-    for(let i = 150; i< 255; i++) {
-      grayscaleColors.push(rgb2hex([i, i, i]))
+    for (let i = 150; i < 255; i++) {
+      grayscaleColors.push(rgb2hex([i, i, i]));
     }
 
     // Обработка нажатий
@@ -63,9 +132,7 @@
       let initialColor = rgb2hex(ctx.getImageData(ex, ey, 1, 1).data);
 
       // Цвет заливки
-      let newColor = "#a0d160";
-
-      console.log(initialColor, newColor);
+      let newColor = config.activeColor;
 
       function getPixel(x, y) {
         let pixel = [];
@@ -114,7 +181,10 @@
             if (x >= canvas.width || x < 0 || y >= canvas.height || y < 0) {
               return;
             }
-            if (rgb2hex(getPixel(x, y)) == iColor || grayscaleColors.includes(rgb2hex(getPixel(x, y)))) {
+            if (
+              rgb2hex(getPixel(x, y)) == iColor ||
+              grayscaleColors.includes(rgb2hex(getPixel(x, y)))
+            ) {
               // Установить цветом этого элемента цвет заливки
               for (let i = 0; i < 3; i++) {
                 imageData.data[y * (imageData.width * 4) + x * 4 + i] =
@@ -136,6 +206,14 @@
         return;
       }
       drawPixels([ex, ey], initialColor, newColor);
+
+      if (config.historyStep) {
+        config.history = config.history.slice(0, config.history.length - config.historyStep);
+
+        config.historyStep = 0;
+      }
+
+      config.history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     }
 
     canvas.addEventListener("mousedown", fill);
