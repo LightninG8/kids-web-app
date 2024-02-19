@@ -59,7 +59,7 @@
 
     // Drag and Drop
     function dragStart(elem, startPageX, startPageY) {
-      if (!WebApp?.isExpanded) {
+      if (! WebApp ? WebApp?.isExpanded : true) {
         return;
       }
 
