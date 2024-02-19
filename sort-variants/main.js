@@ -1,4 +1,25 @@
 (async () => {
+  // Фиксим отступ сверху
+  function fixAnswersOffsetTop() {
+    let lastTopOffset = 0;
+
+    document.querySelectorAll(".game__answers .game__answer").forEach((el) => {
+      el.style.top = lastTopOffset + 8 + "px";
+      el.style.left = "0px";
+
+      lastTopOffset = lastTopOffset + el.clientHeight + 8;
+    });
+
+    document.querySelectorAll(".game__window .game__answer").forEach((el) => {
+      el.style.removeProperty("top");
+      el.style.removeProperty("left");
+    });
+  }
+
+  window.addEventListener("load", () => {
+    console.log("load");
+    fixAnswersOffsetTop();
+  });
   document.addEventListener("DOMContentLoaded", async () => {
     // Safari фикс 1vh
     document.documentElement.style.setProperty(
@@ -20,35 +41,12 @@
           const answerElem = document.createElement("div");
 
           answerElem.classList.add("game__answer");
-          answerElem.innerHTML = `<span>${el}</span>`;
+          answerElem.textContent = el;
           answerElem.style.top = "0px";
 
           gameAnswersElem.appendChild(answerElem);
         });
       });
-
-    // Фиксим отступ сверху
-    function fixAnswersOffsetTop() {
-      let lastTopOffset = 0;
-
-      document
-        .querySelectorAll(".game__answers .game__answer")
-        .forEach((el) => {
-          el.style.top = lastTopOffset + 8 + "px";
-          el.style.left = "0px";
-
-          console.dir(el);
-          const textWidth = el.childNodes[0].getBoundingClientRect().width;
-          const height = textWidth > 312 ? (Math.floor(textWidth / 312) + 1) * 20 : el.clientHeight;
-  
-          lastTopOffset = lastTopOffset + height + 8;
-        });
-
-      document.querySelectorAll(".game__window .game__answer").forEach((el) => {
-        el.style.removeProperty("top");
-        el.style.removeProperty("left");
-      });
-    }
 
     fixAnswersOffsetTop();
     window.addEventListener("resize", fixAnswersOffsetTop);
@@ -60,7 +58,9 @@
 
     // Drag and Drop
     function dragStart(elem, startPageX, startPageY) {
-      if (! window.Telegram?.WebApp ? window.Telegram?.WebApp?.isExpanded : true) {
+      if (
+        !window.Telegram?.WebApp ? window.Telegram?.WebApp?.isExpanded : true
+      ) {
         return;
       }
 
@@ -159,7 +159,7 @@
       return false;
     }
 
-    function onMouseDown(e) { 
+    function onMouseDown(e) {
       const { pageX, pageY } = e;
 
       dragStart(e.target, pageX, pageY);
