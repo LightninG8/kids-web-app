@@ -9,7 +9,7 @@
       el.style.top = lastTopOffset + 8 + "px";
       el.style.left = "0px";
 
-      lastTopOffset = lastTopOffset + el.clientHeight  + 8;
+      lastTopOffset = lastTopOffset + el.clientHeight + 8;
     });
 
     document.querySelectorAll(".game__window .game__answer").forEach((el) => {

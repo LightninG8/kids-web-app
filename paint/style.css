@@ -1,0 +1,42 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+body {
+  background: #d6e6fd;
+
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.game__wrapper {
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+
+  background: #F8F8F8;
+
+  overflow-x: hidden;
+}
+
+.game__container {
+  position: relative;
+
+  margin-top: 32px;
+}
+
+.game__canvas {
+  border: 1px solid #808080;
+}

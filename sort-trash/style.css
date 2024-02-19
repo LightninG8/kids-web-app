@@ -51,10 +51,6 @@ body {
   overflow-x: hidden;
 }
 
-.game__wrapper.isDragging {
-  overflow: hidden;
-}
-
 .game__container {
   position: relative;
 
