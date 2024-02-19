@@ -76,6 +76,9 @@
 
         gameWindowElem.append(elem);
 
+        elem.removeEventListener("mousedown", onMouseDown);
+        elem.removeEventListener("touchstart", onTouchStart);
+
         gameWrapperElem.classList.remove("isDragging");
 
         fixAnswersOffsetTop();
