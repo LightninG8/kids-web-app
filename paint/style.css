@@ -43,6 +43,7 @@ body {
   background: #f8f8f8;
 
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .game__container {
