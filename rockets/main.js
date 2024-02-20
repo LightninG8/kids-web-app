@@ -1,27 +1,6 @@
 (async () => {
   window.Telegram && window.Telegram?.WebApp.expand();
 
-  // Фиксим отступ сверху
-  function fixAnswersOffsetTop() {
-    let lastTopOffset = 0;
-
-    document.querySelectorAll(".game__answers .game__answer").forEach((el) => {
-      el.style.top = lastTopOffset + 8 + "px";
-      el.style.left = "0px";
-
-      lastTopOffset = lastTopOffset + el.clientHeight + 8;
-    });
-
-    document.querySelectorAll(".game__window .game__answer").forEach((el) => {
-      el.style.removeProperty("top");
-      el.style.removeProperty("left");
-    });
-  }
-
-  window.addEventListener("load", () => {
-    console.log("load");
-    fixAnswersOffsetTop();
-  });
   document.addEventListener("DOMContentLoaded", async () => {
     // Safari фикс 1vh
     document.documentElement.style.setProperty(
@@ -36,33 +15,43 @@
       );
     });
 
-    const gameWrapperElem = document.querySelector(".game__wrapper");
-    const gameWindowElem = document.querySelector(".game__window");
-    const gameFrameElem = document.querySelector(".game__frame");
     const gameAnswersElem = document.querySelector(".game__answers");
-    const gameSaveButtonElem = document.querySelector(".game__save");
+    const leftRocketElem = document.querySelector(".rocket-left");
+    const rightRocketElem = document.querySelector(".rocket-right");
+
+    let answersLength = 0;
 
     // Добавляем ответы
     await fetch("./gameConfig.json")
       .then((response) => response.json())
       .then((config) => {
+        answersLength = config.answers.length;
+
         config.answers.forEach((el) => {
           const answerElem = document.createElement("div");
 
           answerElem.classList.add("game__answer");
           answerElem.textContent = el;
-          answerElem.style.top = "0px";
 
           gameAnswersElem.appendChild(answerElem);
         });
       });
 
-    fixAnswersOffsetTop();
-    window.addEventListener("resize", fixAnswersOffsetTop);
+    // Финиш игры
+    function onGameFinish() {
+      console.log("finish");
+    }
 
-    // Функция сохранения (финиш)
-    function onGameSave() {
-      console.log("You win");
+    function insertFakeAnswer(elem) {
+      const answerElem = document.createElement("div");
+
+      answerElem.classList.add("fake-answer");
+      answerElem.classList.add("animate");
+
+      answerElem.style.width = elem.offsetWidth + "px";
+      answerElem.style.height = elem.offsetHeight + "px";
+
+      elem.after(answerElem);
     }
 
     // Drag and Drop
@@ -73,42 +62,45 @@
         return;
       }
 
-      const startElemLeft = +elem.style.left.replace("px", "");
-      const startElemTop = +elem.style.top.replace("px", "");
+      const dragStartElem = elem;
 
       elem.classList.add("drag");
-      gameWrapperElem.classList.add("isDragging");
 
       function dragMove(pageX, pageY) {
         const deltaX = pageX - startPageX;
         const deltaY = pageY - startPageY;
 
-        elem.style.left = startElemLeft + deltaX + "px";
-        elem.style.top = startElemTop + deltaY + "px";
+        elem.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
       }
 
       function dragEnd(pageX, pageY) {
-        // Если за пределами окна
-        if (!isCursorInsideGameWindow(pageX, pageY)) {
-          fixAnswersOffsetTop();
+        function doRocketCheck(elem) {
+          const thumbElem = elem.querySelector(".rocket-fill-thumb");
 
-          elem.classList.remove("drag");
-          gameWrapperElem.classList.remove("isDragging");
+          if (isCursorInsideElem(elem, pageX, pageY)) {
+            thumbElem.dataset.value = +thumbElem.dataset.value + 1;
+            const fillValue = (+thumbElem.dataset.value / answersLength) * 100;
+            thumbElem.style.height = fillValue + "%";
+            thumbElem.classList.remove("empty");
 
-          return;
+            insertFakeAnswer(dragStartElem);
+
+            gameAnswersElem.removeChild(dragStartElem);
+          }
         }
 
-        gameWindowElem.append(elem);
+        // Если левая ракета
+        doRocketCheck(leftRocketElem);
 
-        elem.removeEventListener("mousedown", onMouseDown);
-        elem.removeEventListener("touchstart", onTouchStart);
+        // Если правая ракета
+        doRocketCheck(rightRocketElem);
 
-        gameWrapperElem.classList.remove("isDragging");
-
-        fixAnswersOffsetTop();
+        elem.classList.remove("drag");
+        elem.classList.remove("drag");
+        elem.style.transform = `translate(0px, 0px)`;
 
         if (document.querySelectorAll(".game__window .game__answer").length) {
-          gameSaveButtonElem.classList.remove("disable");
+          onGameFinish();
         }
       }
 
@@ -152,9 +144,9 @@
       document.addEventListener("mouseup", onMouseUp);
     }
 
-    // Если курсор в над "окном"
-    function isCursorInsideGameWindow(x, y) {
-      const windowRect = gameFrameElem.getBoundingClientRect();
+    // Если курсор над элементом
+    function isCursorInsideElem(elem, x, y) {
+      const windowRect = elem.getBoundingClientRect();
 
       if (
         x >= windowRect.left &&
@@ -180,11 +172,9 @@
       dragStart(e.target, pageX, pageY);
     }
 
-    document.querySelectorAll(".game__answers .game__answer").forEach((el) => {
+    document.querySelectorAll(".game__answer").forEach((el) => {
       el.addEventListener("mousedown", onMouseDown);
       el.addEventListener("touchstart", onTouchStart);
     });
-
-    gameSaveButtonElem.addEventListener("click", onGameSave);
   });
 })();
