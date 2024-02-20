@@ -15,6 +15,7 @@
       );
     });
 
+    const gameWrapperElem = document.querySelector(".game__wrapper");
     const gameAnswersElem = document.querySelector(".game__answers");
     const leftRocketElem = document.querySelector(".rocket-left");
     const rightRocketElem = document.querySelector(".rocket-right");
@@ -62,6 +63,8 @@
         return;
       }
 
+      gameWrapperElem.classList.add("overflow-hidden");
+
       const dragStartElem = elem;
 
       elem.classList.add("drag");
@@ -94,6 +97,8 @@
 
         // Если правая ракета
         doRocketCheck(rightRocketElem);
+
+        gameWrapperElem.classList.remove("overflow-hidden");
 
         elem.classList.remove("drag");
         elem.classList.remove("drag");
