@@ -172,8 +172,18 @@ body {
   transition: none;
 }
 
-.game__save {
-  position: absolute;
+.game__save-bg {
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  height: 80px;
+
+  background: #d6e6fd;
+}
+
+.game__save-button {
+  position: fixed;
   bottom: 20px;
 
   padding: 12px 4px;

@@ -75,8 +75,8 @@
     const canvas = document.querySelector(".game__canvas");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
-    canvas.width = 320;
-    canvas.height = 420;
+    canvas.width = 762;
+    canvas.height = 1000;
 
     // Добавляем картинку
     const img = new Image();
@@ -122,11 +122,11 @@
 
     // Обработка нажатий
     function fill(e) {
-      let ex = e.offsetX || e.changedTouches[0].offsetX,
-        ey = e.offsetY || e.changedTouches[0].offsetY;
-
-      console.log(e);
-
+      // Получаем координаты события клика или касания
+      let canvasRect = canvas.getBoundingClientRect();
+      let ex = Math.round(e.layerX * canvas.width / canvasRect.width),
+          ey = Math.round(e.layerY * canvas.height / canvasRect.height);
+  
       let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
       let initialColor = rgb2hex(ctx.getImageData(ex, ey, 1, 1).data);
@@ -178,7 +178,7 @@
           queue.shift();
 
           function fillPixel(x, y) {
-            if (x >= canvas.width || x < 0 || y >= canvas.height || y < 0) {
+            if ((x >= canvas.width || x < 0 || y >= canvas.height || y < 0)) {
               return;
             }
             if (
@@ -217,6 +217,6 @@
     }
 
     canvas.addEventListener("mousedown", fill);
-    canvas.addEventListener("touch", fill);
+    canvas.addEventListener("touchstart", fill);
   });
 })();

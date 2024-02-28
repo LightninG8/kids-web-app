@@ -120,7 +120,7 @@
 
         fixAnswersOffsetTop();
 
-        if (document.querySelectorAll(".game__window .game__answer").length) {
+        if (!document.querySelectorAll(".game__answers .game__answer").length) {
           gameSaveButtonElem.classList.remove("disable");
         }
       }

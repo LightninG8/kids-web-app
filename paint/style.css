@@ -32,7 +32,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 320px;
+  max-width: 640px;
   margin: 0 auto;
 }
 
@@ -43,7 +43,6 @@ body {
   background: #f8f8f8;
 
   overflow-x: hidden;
-  overflow-y: auto;
 }
 
 .game__container {
@@ -53,14 +52,20 @@ body {
 }
 
 .game__window {
-  position: relative;
-
-  height: 420px;
-  
-  margin-top: 12px;
-  border-radius: 12px;
-  overflow: hidden;
+  width: 100%; /* Контейнер занимает всю ширину страницы */
+  height: 0; /* Начальная высота нулевая */
+  padding-top: calc(100% * 420 / 320); /* Вычисление высоты с сохранением соотношения сторон */
+  position: relative; /* Для позиционирования дочерних элементов */
 }
+
+.game__canvas {
+  position: absolute; /* Абсолютное позиционирование внутри контейнера */
+  width: 100%; /* Канвас занимает всю ширину контейнера */
+  height: 100%; /* Канвас занимает всю высоту контейнера */
+  top: 0; /* Размещение канваса вверху контейнера */
+  left: 0; /* Размещение канваса влево контейнера */
+}
+
 .game__title {
   color: #222222;
   font-family: "SF Pro Text";

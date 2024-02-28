@@ -40,7 +40,8 @@
     const gameWindowElem = document.querySelector(".game__window");
     const gameFrameElem = document.querySelector(".game__frame");
     const gameAnswersElem = document.querySelector(".game__answers");
-    const gameSaveButtonElem = document.querySelector(".game__save");
+    const gameSaveElem = document.querySelector(".game__save");
+    const gameSaveButtonElem = document.querySelector(".game__save-button");
 
     // Добавляем ответы
     await fetch("./gameConfig.json")
@@ -114,7 +115,7 @@
         fixAnswersOffsetTop();
 
         if (document.querySelectorAll(".game__window .game__answer").length) {
-          gameSaveButtonElem.classList.remove("disable");
+          gameSaveElem.classList.remove("disable");
         }
       }
 
