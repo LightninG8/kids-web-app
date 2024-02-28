@@ -37,7 +37,8 @@
     });
 
     const gameWrapperElem = document.querySelector(".game__wrapper");
-    const gameWindowElem = document.querySelector(".game__window");
+    const gameWindowGoodElem = document.querySelector(".game__window.good");
+    const gameWindowBadElem = document.querySelector(".game__window.bad");
     const gameFrameElem = document.querySelector(".game__frame");
     const gameAnswersElem = document.querySelector(".game__answers");
     const gameSaveButtonElem = document.querySelector(".game__save");
@@ -94,22 +95,28 @@
       }
 
       function dragEnd(pageX, pageY) {
-        // Если за пределами окна
-        if (!isCursorInsideGameWindow(pageX, pageY)) {
-          fixAnswersOffsetTop();
+        if (isCursorInsideElem(gameWindowGoodElem, pageX, pageY)) {
+          gameWindowGoodElem.append(elem);
+
+          elem.removeEventListener("mousedown", onMouseDown);
+          elem.removeEventListener("touchstart", onTouchStart);
+        }
+
+        if (isCursorInsideElem(gameWindowBadElem, pageX, pageY)) {
+          gameWindowBadElem.append(elem);
+
+          
+          elem.removeEventListener("mousedown", onMouseDown);
+          elem.removeEventListener("touchstart", onTouchStart);
+        }
+
+        fixAnswersOffsetTop();
 
           elem.classList.remove("drag");
           gameWrapperElem.classList.remove("isDragging");
 
-          return;
-        }
+       
 
-        gameWindowElem.append(elem);
-
-        elem.removeEventListener("mousedown", onMouseDown);
-        elem.removeEventListener("touchstart", onTouchStart);
-
-        gameWrapperElem.classList.remove("isDragging");
 
         fixAnswersOffsetTop();
 
@@ -158,9 +165,9 @@
       document.addEventListener("mouseup", onMouseUp);
     }
 
-    // Если курсор в над "окном"
-    function isCursorInsideGameWindow(x, y) {
-      const windowRect = gameFrameElem.getBoundingClientRect();
+    // Если курсор над элементом
+    function isCursorInsideElem(elem, x, y) {
+      const windowRect = elem.getBoundingClientRect();
 
       if (
         x >= windowRect.left &&

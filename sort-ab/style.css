@@ -1,0 +1,216 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+@font-face {
+  font-family: "SA Long Beach";
+  src: url("./fonts/SALongBeach.woff");
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("./fonts/SFProText-Medium.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("./fonts/SFProText-Bold.ttf");
+  font-weight: bold;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body {
+  background: #d6e6fd;
+
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.game__wrapper {
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+
+  overflow-x: hidden;
+
+  background: url("./images/bg.svg") no-repeat;
+  background-size: cover;
+}
+
+.game__wrapper.isDragging {
+  overflow: hidden;
+}
+
+.game__container {
+  position: relative;
+
+  height: calc(100% - 20px);
+  margin-top: 20px;
+}
+
+.game__frame {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.game__header {
+  text-align: center;
+}
+
+.game__window {
+  position: relative;
+
+  padding: 8px 0;
+  min-height: 240px;
+
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+.game__window {
+  position: relative;
+
+  z-index: 10;
+}
+
+.game__window:after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: block;
+
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='rgb(251, 137, 88)' stroke-width='3' stroke-dasharray='8 %2c 10' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.game__window > .game__answer:first-child {
+  margin-top: 0;
+}
+
+.game__window > .game__answer {
+  position: static;
+
+  margin-top: 8px;
+  font-family: "SA Long Beach";
+  font-size: 12px;
+  color: #67a2f8;
+  text-shadow: 1px 0 1px #ffffff, 0 1px 1px #ffffff, -1px 0 1px #ffffff,
+    0 -1px 1px #ffffff;
+}
+
+.game__window.good > .game__answer {
+  color: #4fa400;
+}
+
+.game__window.bad > .game__answer {
+  color: #c30000;
+}
+
+.game__answers {
+  position: relative;
+
+  margin-top: 12px;
+}
+
+.game__answer {
+  -webkit-transition: 0.2s all ease;
+  -o-transition: 0.2s all ease;
+  transition: 0.2s all ease;
+}
+
+.game__answer span {
+  pointer-events: none;
+}
+
+.game__answers > .game__answer {
+  position: absolute;
+  padding: 4px;
+  width: 100%;
+
+  text-align: center;
+  font-size: 16px;
+  font-family: "SF Pro Text";
+  font-weight: normal;
+  color: #ffffff;
+
+  border-radius: 8px;
+  background: #fb8958;
+
+  cursor: pointer;
+}
+
+.game__answers > .game__answer.drag {
+  z-index: 100;
+
+  -webkit-transition: none;
+
+  -o-transition: none;
+
+  transition: none;
+}
+
+.game__save {
+  position: absolute;
+  bottom: 20px;
+
+  padding: 12px 4px;
+  width: 100%;
+
+  text-align: center;
+  font-size: 16px;
+  font-family: "SF Pro Text";
+  font-weight: normal;
+  color: #ffffff;
+
+  border-radius: 8px;
+  background: #a0d160;
+
+  cursor: pointer;
+  -webkit-transition: 0.1s all ease;
+  -o-transition: 0.1s all ease;
+  transition: 0.1s all ease;
+}
+
+.game__save.disable {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media screen and (min-width: 560px) {
+  .container {
+    max-width: 520px;
+  }
+}
+/* 
+@media screen and (min-width: 960px) {
+}
+
+@media screen and (min-width: 1200px) {
+} */
