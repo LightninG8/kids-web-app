@@ -148,3 +148,16 @@ body {
 .game__color.active {
   border: 2px solid #a0d160;
 }
+
+@media screen and (max-width: 375px) {
+  .container {
+    max-width: 280px;
+  }
+
+  .game__colors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+}

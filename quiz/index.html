@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .game__canvas {
+      width: 100%;
+      /* Ширина canvas будет равна ширине его родительского элемента */
+      height: auto;
+      /* Автоматически рассчитывается высота, сохраняя соотношение сторон */
+    }
+  </style>
+  <title>Document</title>
+
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="game game__wrapper">
+    <div class="container game__container">
+      <div class="game__title">Кого из трёх героев загадала Луна?</div>
+      <div class="game__window"></div>
+      <div class="game__answers">
+        <div class="game__answer answer" data-value="1">
+          <div class="answer__avatar"></div>
+          <div class="answer__title">Кир</div>
+        </div>
+        <div class="game__answer answer" data-value="2">
+          <div class="answer__avatar"></div>
+          <div class="answer__title">Вея</div>
+        </div>
+        <div class="game__answer answer" data-value="3">
+          <div class="answer__avatar"></div>
+          <div class="answer__title">Май</div>
+        </div>
+        <div class="game__answer answer" data-value="4">
+          <div class="answer__avatar"></div>
+          <div class="answer__title">Опар Зувич</div>
+        </div>
+        <div class="game__answer answer" data-value="5">
+          <div class="answer__avatar"></div>
+          <div class="answer__title">Юрайя</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./main.js"></script>
+</body>
+
+</html>

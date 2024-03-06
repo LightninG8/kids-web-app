@@ -1,0 +1,151 @@
+@font-face {
+  font-family: "SA Long Beach";
+  src: url("./fonts/SALongBeach.woff");
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("./fonts/SFProText-Medium.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("./fonts/SFProText-Bold.ttf");
+  font-weight: bold;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body {
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.game__wrapper {
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+
+  background: url("./images/bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  overflow: hidden;
+}
+
+.game__container {
+  position: relative;
+
+  padding-top: 32px;
+}
+
+.game__window {
+  padding: 40px 25px;
+  margin-top: 12px;
+
+  text-align: center;
+  color: #ffffff;
+  font-family: "SF Pro Text";
+  font-size: 20px;
+  line-height: 110%;
+
+  border-radius: 16px;
+  background: #6870dd;
+}
+
+.game__title {
+  color: #222222;
+  font-family: "SF Pro Text";
+  line-height: 120%;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.game__answers {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.game__answer {
+  cursor: pointer;
+}
+
+.answer__avatar {
+  width: 100px;
+  height: 100px;
+
+  background-color: #f6fbff;
+  border: 1px solid #6870dd;
+  border-radius: 16px;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+
+  transition: 0.1s;
+}
+
+
+.answer__title {
+  margin-top: 4px;
+
+  color: #0f1461;
+  text-align: center;
+  font-family: "SA Long Beach";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+}
+
+
+.answer > * {
+  pointer-events: none;
+}
+
+
+.answer.right .answer__avatar {
+  background-color: #a0d160;
+}
+
+.answer.wrong .answer__avatar {
+  background-color: #d16060;
+}
+
+.answer[data-value="1"] .answer__avatar {
+  background-image: url('./images/kir.png');
+}
+
+.answer[data-value="2"] .answer__avatar {
+  background-image: url('./images/veya.png');
+}
+
+.answer[data-value="3"] .answer__avatar {
+  background-image: url('./images/may.png');
+}
+
+.answer[data-value="4"] .answer__avatar {
+  background-image: url('./images/opar.png');
+}
+
+.answer[data-value="5"] .answer__avatar {
+  background-image: url('./images/yuraya.png');
+}
