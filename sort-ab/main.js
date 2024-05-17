@@ -63,23 +63,33 @@
 
     // Функция сохранения (финиш)
     function onGameSave() {
-      html2canvas(document.body).then((canvas) => {
-        var dataURL = canvas.toDataURL("image/jpeg");
-        var link = document.createElement("a");
-        link.href = dataURL;
-        link.download = "screenshot.jpg";
-        link.click();
-      })
+      html2canvas(document.body).then(async (canvas) => {
+        const dataURL = canvas.toDataURL("image/jpeg");
+
+        const regex = new RegExp('[\\?&]sid=([^&#]+)');
+        const match = regex.exec(window.location.href);
+
+        let sid;
+        if (match && match.length) {
+          sid = decodeURIComponent(match[1]).toString();
+        }
+
+        await fetch("https://notifications.mamamoonkids.ru/send_bot_notification", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          body: JSON.stringify({
+            message: "Скриншот игры \"Сортировка\"",
+            client_id: sid,
+            imade_data: dataURL,
+          }),
+        });
+      });
     }
 
     // Drag and Drop
     function dragStart(elem, startPageX, startPageY) {
-      if (
-        !window.Telegram?.WebApp ? window.Telegram?.WebApp?.isExpanded : true
-      ) {
-        return;
-      }
-
       const startElemLeft = +elem.style.left.replace("px", "");
       const startElemTop = +elem.style.top.replace("px", "");
 
@@ -105,18 +115,14 @@
         if (isCursorInsideElem(gameWindowBadElem, pageX, pageY)) {
           gameWindowBadElem.append(elem);
 
-          
           elem.removeEventListener("mousedown", onMouseDown);
           elem.removeEventListener("touchstart", onTouchStart);
         }
 
         fixAnswersOffsetTop();
 
-          elem.classList.remove("drag");
-          gameWrapperElem.classList.remove("isDragging");
-
-       
-
+        elem.classList.remove("drag");
+        gameWrapperElem.classList.remove("isDragging");
 
         fixAnswersOffsetTop();
 

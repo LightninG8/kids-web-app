@@ -1,0 +1,172 @@
+@font-face {
+  font-family: "SA Long Beach";
+  src: url("./fonts/SALongBeach.woff");
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("./fonts/SFProText-Medium.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("./fonts/SFProText-Bold.ttf");
+  font-weight: bold;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body {
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.game__wrapper {
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+
+  background: url("./images/bg.svg") no-repeat no-repeat;
+  background-size: cover;
+  background-position: center center;
+
+  overflow-x: hidden;
+  font-family: "SF Pro Text";
+}
+
+.game__container {
+  position: relative;
+
+  max-width: 340px;
+
+  padding: 16px 0;
+  display: grid;
+  grid-template-rows: repeat(4, auto);
+  grid-row-gap: 24px;
+}
+
+.game__title {
+  color: #222222;
+  font-size: 20;
+  font-weight: bold;
+  text-align: center;
+}
+
+.game__image {
+  display: block;
+  max-width: 100%;
+}
+
+.game__window {
+  position: relative;
+
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.game__layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.game__save {
+  padding: 12px 0;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.03em;
+  text-align: center;
+  color: #ffffff;
+
+  border-radius: 12px;
+  background: #a0d160;
+}
+
+.options__headers {
+  max-width: 340px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 6px;
+
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.options__header {
+  padding: 4px 12px;
+
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 22px;
+  text-align: center;
+  color: #b279d5;
+
+  background: #f9efff;
+  border-radius: 8px;
+
+  transition: 0.1s;
+}
+
+.options__header.active {
+  color: #ffffff;
+
+  background: #b279d5;
+}
+
+.options__tabs {
+  margin-top: 8px;
+}
+
+.options__tab {
+  height: 104px;
+  display: none;
+  grid-auto-flow: column;
+  gap: 8px;
+  max-width: 340px;
+
+  overflow: auto;
+}
+
+.options__tab.active {
+  display: grid;
+}
+
+.tab__option {
+  width: 96px;
+  height: 96px;
+
+  border: 1px solid #a86acf;
+  border-radius: 12px;
+  background-color: #fdf9ff;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* background-size: 80% auto; */
+  background-size: 100% auto;
+
+
+  background-image: url("./images/Собери\ Храм\ Луны/Двери/Дверь\ 1.png");
+
+  transition: 0.1s;
+}
+
+.tab__option.active {
+  background-color: #f4e3ff;
+}
