@@ -73,6 +73,9 @@ body {
 
 .game__window {
   position: relative;
+  min-height: 440px;
+  background-color: #ffffff;
+  border: 1px solid #a86acf;
 
   border-radius: 12px;
   overflow: hidden;
@@ -144,6 +147,10 @@ body {
   overflow: auto;
 }
 
+.options__tab.text-preview {
+  height: 65px;
+}
+
 .options__tab.active {
   display: grid;
 }
@@ -161,10 +168,39 @@ body {
   /* background-size: 80% auto; */
   background-size: 100% auto;
 
-
-  background-image: url("./images/Собери\ Храм\ Луны/Двери/Дверь\ 1.png");
-
   transition: 0.1s;
+}
+
+
+
+.tab__option.text-preview {
+  height: 55px;
+  width: auto;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab__option.text-preview span {
+  text-align: center;
+  white-space: nowrap;
+
+  /* Комедия */
+
+  font-family: "SA Long Beach";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+
+  background: linear-gradient(180deg, #8e48b9 0%, #e4baff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+
+  pointer-events: none;
 }
 
 .tab__option.active {

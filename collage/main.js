@@ -73,13 +73,19 @@
     tabHeader.dataset.id = i;
 
     const tabBody = document.createElement("div");
+    config.isTextPreview && tabBody.classList.add("text-preview")
     tabBody.classList.add("options__tab", "tab");
     tabBody.dataset.id = i;
 
     tab.images.forEach((image, idx) => {
       const tabOption = document.createElement("div");
       tabOption.classList.add("tab__option");
-      tabOption.style.backgroundImage = `url("${image.preview}")`;
+      if (config.isTextPreview) {
+        tabOption.classList.add("text-preview");
+        tabOption.innerHTML = `<span>${image.preview}</span>`;
+      } else {
+        tabOption.style.backgroundImage = `url("${image.preview}")`;
+      }
       tabOption.dataset.id = `${i}-${idx}`;
 
       if (!idx) {
@@ -123,6 +129,8 @@
     });
   });
 
+  let prevAudio;
+
   gameOptions.forEach((el) => {
     el.addEventListener("click", (e) => {
       document
@@ -131,12 +139,20 @@
       e.target.classList.add("active");
 
       const id = e.target.dataset.id.split("-");
+      const image = config.tabs[id[0]].images[id[1]];
 
       document.querySelector(
         `.game__layer[data-id="${id[0]}"]`
-      ).innerHTML = `<img class="game__image" src="${
-        config.tabs[id[0]].images[id[1]].main
-      }" alt=""/>`;
+      ).innerHTML = `<img class="game__image" src="${image.main}" alt=""/>`;
+
+      if (image.audio) {
+        prevAudio?.pause();
+  
+        const audio = new Audio(image.audio);
+        audio.play();
+
+        prevAudio = audio;
+      }
     });
   });
 
