@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+
+<body>
+  <div class="game game__wrapper">
+
+    <div class="container game__container">
+      <div class="game__quiz active">
+        <div class="game__title">Рассортируй поступки</div>
+        <div class="game__question"><span class="text"></span></div>
+        <div class="game__variants">
+          <div class="game__variant good">
+            <img src="" alt="">
+          </div>
+          <div class="game__variant bad">
+            <img src="" alt="">
+          </div>
+        </div>
+      </div>
+
+      <div class="game__frame">
+        <div class="game__box">
+
+          <div class="game__header good">
+            <img src="./images/можно.png" alt="">
+          </div>
+
+          <div class="game__window good"></div>
+
+        </div>
+        <div class="game__box">
+          <div class="game__header bad">
+            <img src="./images/нельзя.png" alt="">
+          </div>
+          <div class="game__window bad"></div>
+        </div>
+        <div class="game__save">Сохранить</div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+    integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+    integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="./main.js"></script>
+</body>
+
+</html>

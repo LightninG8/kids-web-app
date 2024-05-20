@@ -91,7 +91,7 @@
       }
       tabOption.dataset.id = `${i}-${idx}`;
 
-      if (!idx) {
+      if (!idx && !config.isOnlyBaseImageFirst) {
         tabOption.classList.add("active");
       }
 
@@ -107,7 +107,10 @@
       gameLayer.style.top = config.yTransition + 'px';
     }
     gameLayer.dataset.id = i;
-    gameLayer.innerHTML = `<img class="game__image" src="${tab.images[0].main}" ${config.isInteractive && !tab.isNoneInteractive ? 'style="max-width: none;"' : ''}alt=""/>`;
+
+    if (!config.isOnlyBaseImageFirst) {
+      gameLayer.innerHTML = `<img class="game__image" src="${tab.images[0].main}" ${config.isInteractive && !tab.isNoneInteractive ? 'style="max-width: none;"' : ''}alt=""/>`;
+    }
 
     const positions = [
       [50, 250],

@@ -1,6 +1,7 @@
 {
   "baseImage": "./images/Одень Кира/Кир в нижнем белье (основа).png",
   "title": "Одень кира",
+  "isOnlyBaseImageFirst": true,
   "yTransition": 50,
   "tabs": [
     {

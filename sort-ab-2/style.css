@@ -1,0 +1,237 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+@font-face {
+  font-family: "SA Long Beach";
+  src: url("./fonts/SALongBeach.woff");
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("./fonts/SFProText-Medium.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("./fonts/SFProText-Bold.ttf");
+  font-weight: bold;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body {
+  background: #d6e6fd;
+
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.game__wrapper {
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+
+  overflow-x: hidden;
+
+  background: url("./images/bg.svg") no-repeat;
+  background-size: cover;
+}
+
+.game__container {
+  position: relative;
+
+  height: calc(100% - 20px);
+  margin-top: 20px;
+
+  display: grid;
+  align-items: center;
+}
+
+.game__frame:not(.active),
+.game__quiz:not(.active) {
+  display: none;
+}
+
+.game__title {
+  /* What is the most pop */
+
+  font-family: "SF Pro Text";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 22px;
+  /* identical to box height, or 110% */
+  text-align: center;
+  letter-spacing: -0.4px;
+
+  color: #101010;
+}
+
+.game__question {
+  margin-top: 24px;
+  height: 220px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+
+  font-family: "SF Pro Text";
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+
+  color: #ffffff;
+
+  background: #ffa769;
+  border-radius: 32px;
+  border: 4px solid #ffffff;
+}
+
+.game__question .text.opacity {
+  opacity: 0;
+}
+
+.game__question .text {
+  transition: 0.2s;
+}
+
+.game__variants {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+}
+
+.game__variant {
+  height: 110px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid #ffffff;
+  background: #ffffff;
+  border-radius: 16px;
+
+  transition: 0.2s;
+}
+
+.game__variant * {
+  pointer-events: none;
+}
+
+.game__variant.true {
+  border-color: #4fa400;
+}
+
+.game__variant.false {
+  border-color: #c30000;
+}
+
+.game__frame {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-gap: 32px;
+}
+
+.game__box {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-gap: 4px;
+}
+
+.game__header {
+  text-align: center;
+}
+
+.game__window {
+  position: relative;
+
+  padding: 16px;
+
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 24px;
+  min-height: 80px;
+  border: 4px solid #ffa769;
+}
+
+.game__window > .game__answer:first-child {
+  margin-top: 0;
+}
+
+.game__window > .game__answer {
+  position: static;
+
+  margin-top: 12px;
+  /* Уходить на другую сторону Луны */
+
+  font-family: "SA Long Beach";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+
+  flex-grow: 0;
+
+  text-shadow: 1px 0 1px #ffffff, 0 1px 1px #ffffff, -1px 0 1px #ffffff,
+    0 -1px 1px #ffffff;
+}
+
+.game__window.good > .game__answer {
+  color: #4fa400;
+}
+
+.game__window.bad > .game__answer {
+  color: #c30000;
+}
+
+.game__save {
+  padding: 12px 4px;
+  width: 100%;
+
+  text-align: center;
+  font-size: 16px;
+  font-family: "SF Pro Text";
+  font-weight: normal;
+  color: #ffffff;
+
+  border-radius: 8px;
+  background: #a0d160;
+
+  cursor: pointer;
+}
+
+.game__save.disable {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media screen and (min-width: 560px) {
+  .container {
+    max-width: 520px;
+  }
+}
+/* 
+@media screen and (min-width: 960px) {
+}
+
+@media screen and (min-width: 1200px) {
+} */
