@@ -10,7 +10,6 @@
     cid = decodeURIComponent(match[1]).toString();
   }
 
-  console.log(cid);
   // Читаем конфиг
   await fetch(`./configs/gameConfig_${cid || 1}.json`)
     .then((response) => response.json())
@@ -64,6 +63,10 @@
   gameWindowBaseImage.alt = "";
   gameWindowBaseImage.classList.add("game__image");
 
+  if (config.yTransition) {
+    gameWindowBaseImage.style.transform = `translateY(${config.yTransition}px)`;
+  }
+
   gameWindow.append(gameWindowBaseImage);
 
   config.tabs.forEach((tab, i) => {
@@ -73,7 +76,7 @@
     tabHeader.dataset.id = i;
 
     const tabBody = document.createElement("div");
-    config.isTextPreview && tabBody.classList.add("text-preview")
+    config.isTextPreview && tabBody.classList.add("text-preview");
     tabBody.classList.add("options__tab", "tab");
     tabBody.dataset.id = i;
 
@@ -97,8 +100,25 @@
 
     const gameLayer = document.createElement("div");
     gameLayer.classList.add("game__layer");
+    if (tab.isNoneInteractive) {
+      gameLayer.style.pointerEvents = 'none';
+    }
+    if (config.yTransition) {
+      gameLayer.style.top = config.yTransition + 'px';
+    }
     gameLayer.dataset.id = i;
-    gameLayer.innerHTML = `<img class="game__image" src="${tab.images[0].main}" alt=""/>`;
+    gameLayer.innerHTML = `<img class="game__image" src="${tab.images[0].main}" ${config.isInteractive && !tab.isNoneInteractive ? 'style="max-width: none;"' : ''}alt=""/>`;
+
+    const positions = [
+      [50, 250],
+      [200, 260],
+      [80, 330],
+      [210, 330]
+    ]
+    if (config.isInteractive && !tab.isNoneInteractive) {
+      gameLayer.style.left = positions[i - 1][0] + 'px';
+      gameLayer.style.top = positions[i - 1][1] + 'px';
+    }
 
     if (!i) {
       tabBody.classList.add("active");
@@ -141,13 +161,21 @@
       const id = e.target.dataset.id.split("-");
       const image = config.tabs[id[0]].images[id[1]];
 
-      document.querySelector(
+      const currentLayer = document.querySelector(
         `.game__layer[data-id="${id[0]}"]`
-      ).innerHTML = `<img class="game__image" src="${image.main}" alt=""/>`;
+      );
+  
+      currentLayer.innerHTML = `<img class="game__image" src="${image.main}" alt=""/>`;
+
+      if(image.zIndex) {
+        currentLayer.style.zIndex = image.zIndex;
+      } else {
+        currentLayer.style.removeProperty('z-index');
+      }
 
       if (image.audio) {
         prevAudio?.pause();
-  
+
         const audio = new Audio(image.audio);
         audio.play();
 
@@ -157,4 +185,106 @@
   });
 
   gameSave.addEventListener("click", onGameSave);
+
+  // =================
+  // Drag and Drop
+  function dragStart(elem, startPageX, startPageY) {
+    if (!window.Telegram?.WebApp ? window.Telegram?.WebApp?.isExpanded : true) {
+      return;
+    }
+
+    const startElemLeft = +elem.style.left.replace("px", "");
+    const startElemTop = +elem.style.top.replace("px", "");
+
+    function dragMove(pageX, pageY) {
+      const deltaX = pageX - startPageX;
+      const deltaY = pageY - startPageY;
+
+      elem.style.left = startElemLeft + deltaX + "px";
+      elem.style.top = startElemTop + deltaY + "px";
+    }
+
+    function dragEnd(pageX, pageY) {
+      // Если за пределами окна
+      if (!isImageInsideWindow(elem)) {
+        elem.style.left = startElemLeft + "px";
+        elem.style.top = startElemTop + "px";
+      }
+    }
+
+    function onMouseMove(e) {
+      const { pageX, pageY } = e;
+
+      dragMove(pageX, pageY);
+    }
+
+    function onMouseUp(e) {
+      const { pageX, pageY } = e;
+
+      dragEnd(pageX, pageY);
+
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("touchmove", onTouchMove);
+      document.removeEventListener("touchend", onTouchEnd);
+    }
+
+    function onTouchMove(e) {
+      const { pageX, pageY } = e.changedTouches[0];
+
+      dragMove(pageX, pageY);
+    }
+
+    function onTouchEnd(e) {
+      const { pageX, pageY } = e.changedTouches[0];
+
+      dragEnd(pageX, pageY);
+
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("touchmove", onTouchMove);
+      document.removeEventListener("touchend", onTouchEnd);
+    }
+
+    document.addEventListener("touchmove", onTouchMove);
+    document.addEventListener("touchend", onTouchEnd);
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+  }
+
+  function onMouseDown(e) {
+    const { pageX, pageY } = e;
+
+    dragStart(e.target.parentElement, pageX, pageY);
+  }
+
+  function onTouchStart(e) {
+    const { pageX, pageY } = e.changedTouches[0];
+
+    dragStart(e.target.parentElement, pageX, pageY);
+  }
+
+  if (config.isInteractive) {
+    document.querySelectorAll(".game__layer").forEach((el) => {
+      el.addEventListener("mousedown", onMouseDown);
+      el.addEventListener("touchstart", onTouchStart);
+    });
+  }
+
+  // Если курсор в поле
+  function isImageInsideWindow(elem) {
+    const elemRect = elem.getBoundingClientRect();
+    const windowRect = gameWindow.getBoundingClientRect();
+
+    if (
+      elemRect.left >= windowRect.left &&
+      elemRect.right <= windowRect.right &&
+      elemRect.top >= windowRect.top &&
+      elemRect.bottom <= windowRect.bottom
+    ) {
+      return true;
+    }
+
+    return false;
+  }
 })();

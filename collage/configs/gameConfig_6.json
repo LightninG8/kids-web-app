@@ -1,6 +1,7 @@
 {
   "baseImage": "",
   "title": "Собери робота",
+  "yTransition": 30,
   "tabs": [
     {
       "title": "Туловище",

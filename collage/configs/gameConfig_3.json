@@ -1,6 +1,7 @@
 {
   "baseImage": "./images/Создай маску/Основа.png",
   "title": "Создай маску",
+  "yTransition": 40,
   "tabs": [
     {
       "title": "Брови",

@@ -1,6 +1,7 @@
 {
   "baseImage": "",
   "title": "Создай животное",
+  "yTransition": 70,
   "tabs": [
     {
       "title": "Туловище",

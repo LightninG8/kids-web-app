@@ -37,6 +37,9 @@ body {
 }
 
 .game__wrapper {
+  display: grid;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
   height: calc(var(--vh, 1vh) * 100);
 
@@ -112,6 +115,7 @@ body {
   scrollbar-width: none;
 }
 
+
 .options__header {
   padding: 4px 12px;
 
@@ -138,13 +142,15 @@ body {
 }
 
 .options__tab {
-  height: 104px;
+  height: 110px;
   display: none;
   grid-auto-flow: column;
   gap: 8px;
   max-width: 340px;
 
   overflow: auto;
+
+  scrollbar-color: #DDA5FF #DDA5FF;
 }
 
 .options__tab.text-preview {
