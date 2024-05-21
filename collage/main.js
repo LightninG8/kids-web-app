@@ -20,7 +20,6 @@
   // ====================
   // Функция сохранения (финиш)
   function onGameSave() {
-    console.log("1");
     html2canvas(document.querySelector("#screenshot")).then(async (canvas) => {
       const dataURL = canvas.toDataURL("image/jpeg");
 
@@ -54,6 +53,8 @@
   const gameOptionsHeadersWrapper = document.querySelector(".options__headers");
   const gameOptionsTabsWrapper = document.querySelector(".options__tabs");
   const gameSave = document.querySelector(".game__save");
+  const scrollbar = document.querySelector(".scrollbar");
+  const thumb = document.querySelector(".scrollbar__thumb");
 
   // ====================
   gameTitle.textContent = config.title;
@@ -70,6 +71,10 @@
   if (config.yTransition) {
     gameWindowBaseImage.style.transform = `translateY(${config.yTransition}px)`;
   }
+
+  // if (config.scale) {
+  //   gameWindowBaseImage.style.transform = `scale(${config.scale})`;
+  // }
 
   gameWindow.append(gameWindowBaseImage);
 
@@ -105,8 +110,8 @@
     const gameLayer = document.createElement("div");
     gameLayer.classList.add("game__layer");
 
-    if (cid == 7) {
-      gameLayer.style.transform = "scale(1.3)";
+    if (config.scale) {
+      gameLayer.style.transform = `scale(${config.scale})`;
     }
     if (tab.isNoneInteractive) {
       gameLayer.style.pointerEvents = "none";
@@ -115,6 +120,14 @@
       gameLayer.style.top = config.yTransition + "px";
     }
     gameLayer.dataset.id = i;
+
+    if (tab.images[0].zIndex) {
+      gameLayer.style.zIndex = tab.images[0].zIndex;
+    }
+
+    if (tab.default?.zIndex + '') {
+      gameLayer.style.zIndex = tab.default?.zIndex;
+    }
 
     if (!config.isOnlyBaseImageFirst || tab.default?.main) {
       gameLayer.innerHTML = `<img class="game__image" src="${
@@ -125,14 +138,9 @@
           : ""
       } alt=""/>`;
 
-      console.log(tab.default?.zIndex);
-
-      if (tab.default?.zIndex) {
-        gameLayer.style.zIndex = tab.default?.zIndex;
-
-        console.log(gameLayer);
-      }
     }
+
+    
 
     const positions = [
       [50, 250],
@@ -150,7 +158,9 @@
       tabHeader.classList.add("active");
     }
 
-    gameOptionsHeadersWrapper.append(tabHeader);
+    if (!tab.displayNone) {
+      gameOptionsHeadersWrapper.append(tabHeader);
+    }
     gameOptionsTabsWrapper.append(tabBody);
     gameWindow.append(gameLayer);
   });
@@ -160,6 +170,15 @@
   const gameOptionsTabs = document.querySelectorAll(".options__tab");
   const gameOptions = document.querySelectorAll(".tab__option");
 
+  gameOptionsTabs.forEach((el) => {
+    el.addEventListener("scroll", (e) => {
+      setScrollbarPosition(
+        e.srcElement.scrollLeft,
+        document.querySelector(`.options__tab[data-id="${currentTab}"]`)
+      );
+    });
+  });
+
   gameOptionsHeaders.forEach((el) => {
     el.addEventListener("click", (e) => {
       currentTab = e.target.dataset.id;
@@ -168,9 +187,16 @@
       e.target.classList.add("active");
 
       gameOptionsTabs.forEach((el) => el.classList.remove("active"));
-      document
-        .querySelector(`.options__tab[data-id="${currentTab}"]`)
-        .classList.add("active");
+
+      const currentTabElem = document.querySelector(
+        `.options__tab[data-id="${currentTab}"]`
+      );
+      currentTabElem.classList.add("active");
+
+      setScrollbarPosition(
+        currentTabElem.scrollLeft,
+        document.querySelector(`.options__tab[data-id="${currentTab}"]`)
+      );
     });
   });
 
@@ -192,6 +218,16 @@
 
       currentLayer.innerHTML = `<img class="game__image" src="${image.main}" alt=""/>`;
 
+      if (config.title == "Создай животное") {
+        if (id[0] == 4) {
+          const prevLayer = document.querySelector(
+            `.game__layer[data-id="${3}"]`
+          );
+
+          prevLayer.innerHTML = `<img class="game__image" src="${config.tabs[3].images[id[1]].main}" alt=""/>`;
+        }
+      }
+    
       if (image.zIndex) {
         currentLayer.style.zIndex = image.zIndex;
       } else {
@@ -311,5 +347,15 @@
     }
 
     return false;
+  }
+
+  // Установка скроллбара
+  function setScrollbarPosition(offset, currentTab) {
+    scrollbar.offsetWidth;
+
+    const allWidth = currentTab.scrollWidth - currentTab.offsetWidth;
+    for (let i = 0; i < 10; i++) {
+      thumb.style.left = (offset / allWidth) * 10 * i + "%";
+    }
   }
 })();

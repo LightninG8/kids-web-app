@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 @font-face {
   font-family: "SA Long Beach";
   src: url("./fonts/SALongBeach.woff");
@@ -32,14 +39,20 @@ body {
 
 .container {
   width: 100%;
-  max-width: 640px;
+  max-width: 412px;
+  padding: 0 16px;
   margin: 0 auto;
 }
 
 .game__wrapper {
+  display: -ms-grid;
   display: grid;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 100vw;
   height: calc(var(--vh, 1vh) * 100);
 
@@ -54,10 +67,11 @@ body {
 .game__container {
   position: relative;
 
-  max-width: 340px;
-
-  padding: 16px 0;
+  /* padding-top: 16px;
+  padding-bottom: 16px; */
+  display: -ms-grid;
   display: grid;
+  -ms-grid-rows: auto 24px auto 24px auto 24px auto;
   grid-template-rows: repeat(4, auto);
   grid-row-gap: 24px;
 }
@@ -104,12 +118,21 @@ body {
   background: #a0d160;
 }
 
+.game__options {
+  max-width: 382px;
+}
+
 .options__headers {
-  max-width: 340px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   white-space: nowrap;
   gap: 6px;
+  max-width: 100%;
+
 
   overflow: auto;
   scrollbar-width: none;
@@ -128,6 +151,10 @@ body {
   background: #f9efff;
   border-radius: 8px;
 
+  -webkit-transition: 0.1s;
+
+  -o-transition: 0.1s;
+
   transition: 0.1s;
 }
 
@@ -142,15 +169,15 @@ body {
 }
 
 .options__tab {
-  height: 110px;
   display: none;
   grid-auto-flow: column;
+  justify-content: start;
   gap: 8px;
-  max-width: 340px;
+  max-width: 100%;
 
   overflow: auto;
 
-  scrollbar-color: #DDA5FF #DDA5FF;
+  scrollbar-width: none;
 }
 
 .options__tab.text-preview {
@@ -158,7 +185,28 @@ body {
 }
 
 .options__tab.active {
+  display: -ms-grid;
   display: grid;
+}
+
+.options__scrollbar {
+  margin-top: 8px;
+  position: relative;
+  height: 8px;
+  background: #F4E3FF;
+  border-radius: 32px;
+
+}
+.scrollbar__thumb {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  height: 100%;
+  width: 40px;
+
+  background: #DDA5FF;
+  border-radius: 32px;
 }
 
 .tab__option {
@@ -174,6 +222,10 @@ body {
   /* background-size: 80% auto; */
   background-size: 100% auto;
 
+  -webkit-transition: 0.1s;
+
+  -o-transition: 0.1s;
+
   transition: 0.1s;
 }
 
@@ -183,9 +235,15 @@ body {
   height: 55px;
   width: auto;
   padding: 0 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .tab__option.text-preview span {
@@ -199,6 +257,10 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
+
+  background: -webkit-gradient(linear, left top, left bottom, from(#8e48b9), to(#e4baff));
+
+  background: -o-linear-gradient(top, #8e48b9 0%, #e4baff 100%);
 
   background: linear-gradient(180deg, #8e48b9 0%, #e4baff 100%);
   -webkit-background-clip: text;
