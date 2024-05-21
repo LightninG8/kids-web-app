@@ -5,6 +5,13 @@
 * Browsers: last 4 version
 */
 
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 @font-face {
   font-family: "SA Long Beach";
   src: url("./fonts/SALongBeach.woff");
@@ -41,7 +48,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 340px;
+  padding: 0 16px;
   margin: 0 auto;
 }
 
@@ -61,8 +68,12 @@ body {
   height: calc(100% - 20px);
   margin-top: 20px;
 
+  display: -ms-grid;
+
   display: grid;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .game__frame:not(.active),
@@ -87,9 +98,14 @@ body {
 .game__question {
   margin-top: 24px;
   height: 220px;
+  display: -ms-grid;
   display: grid;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding: 0 12px;
 
   font-family: "SF Pro Text";
@@ -110,32 +126,47 @@ body {
 }
 
 .game__question .text {
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
   transition: 0.2s;
 }
 
 .game__variants {
   margin-top: 24px;
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 16px 1fr;
   grid-template-columns: 1fr 1fr;
   grid-gap: 16px;
 }
 
 .game__variant {
   height: 110px;
+  display: -ms-grid;
   display: grid;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  justify-items: center;
 
   border: 2px solid #ffffff;
   background: #ffffff;
   border-radius: 16px;
+
+  -webkit-transition: 0.2s;
+
+  -o-transition: 0.2s;
 
   transition: 0.2s;
 }
 
 .game__variant img {
   pointer-events: none;
-  max-width: 100px;
+  max-width: 80%;
+  max-height: 100px;
 }
 
 .game__variant.true {
@@ -147,13 +178,17 @@ body {
 }
 
 .game__frame {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-rows: auto 32px auto 32px auto;
   grid-template-rows: auto auto auto;
   grid-gap: 32px;
 }
 
 .game__box {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-rows: auto 4px auto;
   grid-template-rows: auto auto;
   grid-gap: 4px;
 }
@@ -194,7 +229,11 @@ body {
   font-size: 18px;
   line-height: 18px;
 
-  flex-grow: 0;
+  -webkit-box-flex: 0;
+
+      -ms-flex-positive: 0;
+
+          flex-grow: 0;
 
   text-shadow: 1px 0 1px #ffffff, 0 1px 1px #ffffff, -1px 0 1px #ffffff,
     0 -1px 1px #ffffff;

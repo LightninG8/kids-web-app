@@ -26,7 +26,7 @@
     }
 
     // Читаем конфиг
-    await fetch(`./configs/gameConfig_${cid || 11}.json`)
+    await fetch(`./configs/gameConfig_${cid || 51}.json`)
       .then((response) => response.json())
       .then((data) => {
         config = data;
@@ -97,6 +97,7 @@
     }
 
     // =============
+    const gameTitle = document.querySelector(".game__title");
     const gameQuiz = document.querySelector(".game__quiz");
     const gameFrame = document.querySelector(".game__frame");
     const gameQuestionText = document.querySelector(".game__question .text");
@@ -105,7 +106,7 @@
     const gameWindowGood = document.querySelector(".game__window.good");
     const gameWindowBad = document.querySelector(".game__window.bad");
 
-    const saveButton = document.querySelector(".game__save");
+    const saveButtons = document.querySelectorAll(".game__save");
     // ============
     gameAnswerGood.dataset.text = config.goodText;
     gameAnswerBad.dataset.text = config.badText;
@@ -119,6 +120,10 @@
     gameAnswerBad.querySelector("img").src = config.badImg;
     document.querySelector(".game__header.good img").src = config.goodImg;
     document.querySelector(".game__header.bad img").src = config.badImg;
+
+    if (config.title) {
+      gameTitle.textContent = config.title;
+    }
 
     function showQuestion(i) {
       const question = config.parts[currentPart].questions[i][0];
@@ -134,8 +139,14 @@
 
     // ============
     let prevAudio;
+    let isCanClick = true;
 
     const onVariantClick = (e) => {
+      if (!isCanClick) {
+        return;
+      }
+
+      isCanClick = false;
       const question = config.parts[currentPart].questions[currentQuestion];
       const gameAnswer = document.createElement("div");
       gameAnswer.textContent = question[0];
@@ -144,15 +155,15 @@
       document
         .querySelector(`.game__window[data-text="${question[1]}"]`)
         .append(gameAnswer);
-      
-      let audioPath = ''
+
+      let audioPath = "";
 
       if (e.target.dataset.text == question[1]) {
         e.target.classList.add("true");
-        audioPath = './audio/верно.wav';
+        audioPath = "./audio/success.mp3";
       } else {
         e.target.classList.add("false");
-        audioPath = './audio/ошибка.wav';
+        audioPath = "./audio/fail.mp3";
       }
 
       if (audioPath) {
@@ -168,6 +179,7 @@
         e.target.classList.remove("true");
         e.target.classList.remove("false");
 
+        isCanClick = true;
       }, 300);
 
       if (currentQuestion != config.parts[currentPart].questions.length - 1) {
@@ -182,6 +194,6 @@
 
     gameAnswerGood.addEventListener("click", onVariantClick);
     gameAnswerBad.addEventListener("click", onVariantClick);
-    saveButton.addEventListener("click", onGameSave);
+    saveButtons.forEach((el) => el.addEventListener("click", onGameSave));
   });
 })();

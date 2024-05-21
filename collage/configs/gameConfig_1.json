@@ -1,6 +1,7 @@
 {
   "baseImage": "./images/Собери Храм Луны/Основа.jpg",
   "title": "Собери храм",
+  "isOnlyBaseImageFirst": true,
   "tabs": [
     {
       "title": "Двери",

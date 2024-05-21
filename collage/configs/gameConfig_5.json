@@ -1,8 +1,9 @@
 {
-  "baseImage": "",
+  "baseImage": "./images/Собери животное/основа.jpg",
+  "isOnlyBaseImageFirst": true,
   "title": "Создай животное",
   "scale": 1.05,
-  "yTransition": 70,
+  "yTransition": 90,
   "tabs": [
     {
       "title": "Туловище",
@@ -106,7 +107,7 @@
       ]
     },
     {
-      "title": "Ноги",
+      "title": "Лапы",
       "images": [
         {
           "main": "./images/Собери животное/Ноги передние/Лиса.png",

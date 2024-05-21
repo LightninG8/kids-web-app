@@ -39,8 +39,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 412px;
-  padding: 0 16px;
+  max-width: 340px;
   margin: 0 auto;
 }
 
@@ -78,7 +77,7 @@ body {
 
 .game__title {
   color: #222222;
-  font-size: 20;
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
 }
@@ -98,6 +97,20 @@ body {
   overflow: hidden;
 }
 
+.buffer-images {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.buffer-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .game__layer {
   position: absolute;
   left: 0;
@@ -119,7 +132,7 @@ body {
 }
 
 .game__options {
-  max-width: 382px;
+  max-width: 340px;
 }
 
 .options__headers {
@@ -135,6 +148,12 @@ body {
 
 
   overflow: auto;
+  scrollbar-width: none;
+}
+
+.options__headers::-webkit-scrollbar {
+  width: 0;
+  height: 0;
   scrollbar-width: none;
 }
 

@@ -1,28 +1,50 @@
 {
-  "baseImage": "./images/Создай маску/Основа.png",
+  "baseImage": "./images/Создай маску/основа.jpg",
   "title": "Создай маску",
-  "yTransition": 40,
+  "isOnlyBaseImageFirst": true,
+  "yTransition": 70,
+  "scale": 1.4,
   "tabs": [
     {
       "title": "Брови",
       "images": [
         {
           "main": "./images/Создай маску/Брови/Домиком.png",
-          "preview": "./images/Создай маску/Брови/Брови Домиком Превью.png"
+          "preview": "./images/Создай маску/Брови/Брови Домиком Превью.png",
+          "zIndex": 1
         },
         {
           "main": "./images/Создай маску/Брови/Злые.png",
-          "preview": "./images/Создай маску/Брови/Брови злые Превью.png"
+          "preview": "./images/Создай маску/Брови/Брови злые Превью.png",
+          "zIndex": 1
         },
         {
           "main": "./images/Создай маску/Брови/Нейтральные.png",
-          "preview": "./images/Создай маску/Брови/Брови Нейтральные Превью.png"
+          "preview": "./images/Создай маску/Брови/Брови Нейтральные Превью.png",
+          "zIndex": 1
         },
         {
           "main": "./images/Создай маску/Брови/Удивленные.png",
-          "preview": "./images/Создай маску/Брови/Брови Удивленные Превью.png"
+          "preview": "./images/Создай маску/Брови/Брови Удивленные Превью.png",
+          "zIndex": 1
         }
       ]
+    },
+    {
+      "title": "",
+      "displayNone": true,
+      "default": {
+        "main": "./images/Создай маску/основа."
+      },
+      "images": []
+    },
+    {
+      "title": "",
+      "default": {
+        "main": "./images/Создай маску/Основа.png"
+      },
+      "displayNone": true,
+      "images": []
     },
     {
       "title": "Глаза",
@@ -88,7 +110,7 @@
       ]
     },
     {
-      "title": "Усы-борода",
+      "title": "Усы/борода",
       "images": [
         {
           "main": "./images/Создай маску/Усы-борода/Борода.png",

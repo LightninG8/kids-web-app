@@ -55,6 +55,7 @@
   const gameSave = document.querySelector(".game__save");
   const scrollbar = document.querySelector(".scrollbar");
   const thumb = document.querySelector(".scrollbar__thumb");
+  const bufferImages = document.querySelector(".buffer-images");
 
   // ====================
   gameTitle.textContent = config.title;
@@ -64,9 +65,9 @@
   gameWindowBaseImage.alt = "";
   gameWindowBaseImage.classList.add("game__image");
 
-  if (config.isOnlyBaseImageFirst) {
-    gameWindowBaseImage.style.opacity = 0;
-  }
+  // if (config.isOnlyBaseImageFirst) {
+  //   gameWindowBaseImage.style.opacity = 0;
+  // }
 
   if (config.yTransition) {
     gameWindowBaseImage.style.transform = `translateY(${config.yTransition}px)`;
@@ -105,6 +106,12 @@
       }
 
       tabBody.append(tabOption);
+
+      const bufferImage = document.createElement('img');
+      bufferImage.src = image.main;
+      bufferImage.classList.add('buffer-image');
+
+      bufferImages.append(bufferImage);
     });
 
     const gameLayer = document.createElement("div");
@@ -121,11 +128,11 @@
     }
     gameLayer.dataset.id = i;
 
-    if (tab.images[0].zIndex) {
+    if (tab.images[0]?.zIndex) {
       gameLayer.style.zIndex = tab.images[0].zIndex;
     }
 
-    if (tab.default?.zIndex + '') {
+    if (tab.default?.zIndex + "") {
       gameLayer.style.zIndex = tab.default?.zIndex;
     }
 
@@ -137,10 +144,7 @@
           ? 'style="max-width: none;"'
           : ""
       } alt=""/>`;
-
     }
-
-    
 
     const positions = [
       [50, 250],
@@ -164,6 +168,8 @@
     gameOptionsTabsWrapper.append(tabBody);
     gameWindow.append(gameLayer);
   });
+
+  normalizeScrollbarVisibility();
 
   // ====================
   const gameOptionsHeaders = document.querySelectorAll(".options__header");
@@ -192,6 +198,8 @@
         `.options__tab[data-id="${currentTab}"]`
       );
       currentTabElem.classList.add("active");
+
+      normalizeScrollbarVisibility();
 
       setScrollbarPosition(
         currentTabElem.scrollLeft,
@@ -224,10 +232,12 @@
             `.game__layer[data-id="${3}"]`
           );
 
-          prevLayer.innerHTML = `<img class="game__image" src="${config.tabs[3].images[id[1]].main}" alt=""/>`;
+          prevLayer.innerHTML = `<img class="game__image" src="${
+            config.tabs[3].images[id[1]].main
+          }" alt=""/>`;
         }
       }
-    
+
       if (image.zIndex) {
         currentLayer.style.zIndex = image.zIndex;
       } else {
@@ -355,7 +365,24 @@
 
     const allWidth = currentTab.scrollWidth - currentTab.offsetWidth;
     for (let i = 0; i < 10; i++) {
-      thumb.style.left = (offset / allWidth) * 10 * i + "%";
+      const percent = (offset / allWidth) * 10 * i;
+
+      if (percent < 0 || percent > 90) {
+        continue;
+      }
+      thumb.style.left = percent + "%";
+    }
+  }
+
+  function normalizeScrollbarVisibility() {
+    const currentTabElem = document.querySelector(
+      `.options__tab[data-id="${currentTab}"]`
+    );
+
+    if (currentTabElem.scrollWidth > currentTabElem.offsetWidth) {
+      scrollbar.style.visibility = "visible";
+    } else {
+      scrollbar.style.visibility = "hidden";
     }
   }
 })();
