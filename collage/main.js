@@ -63,6 +63,10 @@
   gameWindowBaseImage.alt = "";
   gameWindowBaseImage.classList.add("game__image");
 
+  if (config.isOnlyBaseImageFirst) {
+    gameWindowBaseImage.style.opacity = 0;
+  }
+
   if (config.yTransition) {
     gameWindowBaseImage.style.transform = `translateY(${config.yTransition}px)`;
   }
@@ -100,27 +104,45 @@
 
     const gameLayer = document.createElement("div");
     gameLayer.classList.add("game__layer");
+
+    if (cid == 7) {
+      gameLayer.style.transform = "scale(1.3)";
+    }
     if (tab.isNoneInteractive) {
-      gameLayer.style.pointerEvents = 'none';
+      gameLayer.style.pointerEvents = "none";
     }
     if (config.yTransition) {
-      gameLayer.style.top = config.yTransition + 'px';
+      gameLayer.style.top = config.yTransition + "px";
     }
     gameLayer.dataset.id = i;
 
-    if (!config.isOnlyBaseImageFirst) {
-      gameLayer.innerHTML = `<img class="game__image" src="${tab.images[0].main}" ${config.isInteractive && !tab.isNoneInteractive ? 'style="max-width: none;"' : ''}alt=""/>`;
+    if (!config.isOnlyBaseImageFirst || tab.default?.main) {
+      gameLayer.innerHTML = `<img class="game__image" src="${
+        tab.default?.main || tab.images[0].main
+      }" ${
+        config.isInteractive && !tab.isNoneInteractive
+          ? 'style="max-width: none;"'
+          : ""
+      } alt=""/>`;
+
+      console.log(tab.default?.zIndex);
+
+      if (tab.default?.zIndex) {
+        gameLayer.style.zIndex = tab.default?.zIndex;
+
+        console.log(gameLayer);
+      }
     }
 
     const positions = [
       [50, 250],
       [200, 260],
       [80, 330],
-      [210, 330]
-    ]
+      [210, 330],
+    ];
     if (config.isInteractive && !tab.isNoneInteractive) {
-      gameLayer.style.left = positions[i - 1][0] + 'px';
-      gameLayer.style.top = positions[i - 1][1] + 'px';
+      gameLayer.style.left = positions[i - 1][0] + "px";
+      gameLayer.style.top = positions[i - 1][1] + "px";
     }
 
     if (!i) {
@@ -167,13 +189,13 @@
       const currentLayer = document.querySelector(
         `.game__layer[data-id="${id[0]}"]`
       );
-  
+
       currentLayer.innerHTML = `<img class="game__image" src="${image.main}" alt=""/>`;
 
-      if(image.zIndex) {
+      if (image.zIndex) {
         currentLayer.style.zIndex = image.zIndex;
       } else {
-        currentLayer.style.removeProperty('z-index');
+        currentLayer.style.removeProperty("z-index");
       }
 
       if (image.audio) {
